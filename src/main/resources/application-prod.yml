@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://dpg-col47oa0si5c73e58ucg-a.oregon-postgres.render.com/java_project_99_69v6
+    username: java_project_99_69v6_user
+    password: CBo52sGbGB6BFkuSqFLxCo2ca0Ct1pa9
+    driverClassName: org.postgresql.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.PostgreSQL15Dialect
