@@ -14,4 +14,11 @@ public class UserController {
                 .ok()
                 .body("Hello");
     }
+
+    @GetMapping(path = "/welcome")
+    public ResponseEntity<String> getWelcomeString(){
+        return ResponseEntity
+                .ok()
+                .body("Welcome to Spring");
+    }
 }
