@@ -11,8 +11,10 @@ jobs:
         with:
           distribution: 'oracle'
           java-version: '21'
+      - name: Run chmod to make gradlew executable
+        run: chmod +x ./gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+        uses: gradle/gradle-build-action@v2
         with:
           arguments: build
 
