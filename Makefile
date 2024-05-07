@@ -17,6 +17,7 @@ clean:
 	./gradlew clean
 
 build:
+	chmod +x gradlew
 	./gradlew clean build
 
 dev:
@@ -38,6 +39,7 @@ lint:
 	./gradlew checkstyleMain checkstyleTest
 
 test:
+	chmod +x gradlew
 	./gradlew test
 
 # report:
