@@ -25,6 +25,7 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> index() {
      var users = userService.getAll();
      var result = ResponseEntity.ok()
+             .header("X-Total-Count", String.valueOf(users.size()))
              .body(users);
      return result;
     }
