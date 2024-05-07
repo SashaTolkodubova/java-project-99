@@ -42,8 +42,9 @@ test:
 	chmod +x gradlew
 	./gradlew test
 
-# report:
-# 	./gradlew jacocoTestReport
+report:
+	chmod +x gradlew
+	./gradlew jacocoTestReport
 
 update-js-deps:
 	npx ncu -u
