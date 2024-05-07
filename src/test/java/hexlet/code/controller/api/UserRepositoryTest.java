@@ -23,7 +23,8 @@ public class UserRepositoryTest {
         User user = new User();
         user.setFirstName("User1Name");
         user.setLastName("User1LastName");
-        user.setEmail("user1Email@ff .com");
+        user.setEmail("user1Email@ff.com");
+        user.setPassword("123123");
 
         User savedUser = userRepository.save(user);
 
@@ -36,12 +37,14 @@ public class UserRepositoryTest {
         User user1 = new User();
         user1.setFirstName("User1Name");
         user1.setLastName("User1LastName");
-        user1.setEmail("user1Email@ff .com");
+        user1.setEmail("user1Email@ff.com");
+        user1.setPassword("123123");
 
         User user2 = new User();
         user2.setFirstName("User2Name");
         user2.setLastName("User2LastName");
-        user2.setEmail("user2Email@ff .com");
+        user2.setEmail("user2Email@ff.com");
+        user2.setPassword("123123");
 
         userRepository.save(user1);
         userRepository.save(user2);

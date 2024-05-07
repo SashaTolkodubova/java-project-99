@@ -1,4 +1,5 @@
 package hexlet.code.controller.api;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
@@ -42,8 +44,11 @@ public class UserControllerTest {
 
     private User testUser;
 
+    private JwtRequestPostProcessor token;
+
     @BeforeEach
     public void setUp() {
+        token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testUser = Instancio.of(modelGenerator.getUserModel())
                 .create();
         userRepository.save(testUser);
@@ -52,14 +57,8 @@ public class UserControllerTest {
 
     @Test
     public void testIndex() throws Exception {
-        testUser = new User();
-        testUser.setFirstName("User1Name");
-        testUser.setLastName("User1LastName");
-        testUser.setEmail("user1Email@ff.com");
-        testUser.setPassword("123456");
-        userRepository.save(testUser);
-
-        mockMvc.perform(get("/api/users")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/users").with(jwt()))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -68,6 +67,7 @@ public class UserControllerTest {
                 .create();
 
         var request = post("/api/users")
+                .with(token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(data));
 
@@ -87,6 +87,7 @@ public class UserControllerTest {
         data.put("firstName", "Mike");
 
         var request = put("/api/users/" + testUser.getId())
+                .with(jwt().jwt(builder -> builder.subject(testUser.getEmail())))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(data));
 

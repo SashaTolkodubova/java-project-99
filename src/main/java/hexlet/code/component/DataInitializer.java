@@ -1,8 +1,6 @@
 package hexlet.code.component;
 
-import hexlet.code.AppApplication;
 import hexlet.code.dto.UserCreateDTO;
-import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;

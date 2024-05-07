@@ -1,15 +1,11 @@
 package hexlet.code;
 
 import net.datafaker.Faker;
-import net.sf.jsqlparser.statement.create.table.CreateTable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 @SpringBootApplication
 @EnableJpaAuditing
