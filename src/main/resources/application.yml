@@ -8,3 +8,6 @@ spring:
       enabled: always
   profiles:
     active: prod
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem

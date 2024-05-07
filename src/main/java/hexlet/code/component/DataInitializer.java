@@ -1,6 +1,7 @@
 package hexlet.code.component;
 
 import hexlet.code.AppApplication;
+import hexlet.code.dto.UserCreateDTO;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
@@ -22,12 +23,11 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        User user = new User();
-        user.setFirstName("admin");
-        user.setLastName("admin");
-        user.setEmail("hexlet@example.com");
-        user.setPassword("qwerty");
-
-        userRepository.save(user);
+        UserCreateDTO userData = new UserCreateDTO();
+        userData.setFirstName("admin");
+        userData.setLastName("admin");
+        userData.setEmail("hexlet@example.com");
+        userData.setPassword("qwerty");
+        userService.create(userData);
     }
 }
