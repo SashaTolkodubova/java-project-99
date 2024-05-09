@@ -2,8 +2,6 @@ package hexlet.code.component;
 
 import hexlet.code.dto.taskStatusDTO.TaskStatusCreateDTO;
 import hexlet.code.dto.userDTO.UserCreateDTO;
-import hexlet.code.repository.TaskStatusRepository;
-import hexlet.code.repository.UserRepository;
 import hexlet.code.service.TaskStatusService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
