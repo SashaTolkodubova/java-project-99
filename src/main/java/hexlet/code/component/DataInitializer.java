@@ -1,7 +1,10 @@
 package hexlet.code.component;
 
-import hexlet.code.dto.UserCreateDTO;
+import hexlet.code.dto.taskStatusDTO.TaskStatusCreateDTO;
+import hexlet.code.dto.userDTO.UserCreateDTO;
+import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.service.TaskStatusService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements ApplicationRunner {
 
     @Autowired
-    private final UserRepository userRepository;
+    private final TaskStatusService taskStatusService;
 
     @Autowired
     private final UserService userService;
@@ -27,5 +30,32 @@ public class DataInitializer implements ApplicationRunner {
         userData.setEmail("hexlet@example.com");
         userData.setPassword("qwerty");
         userService.create(userData);
+
+        TaskStatusCreateDTO draft = new TaskStatusCreateDTO();
+        TaskStatusCreateDTO toReview = new TaskStatusCreateDTO();
+        TaskStatusCreateDTO toBeFixed = new TaskStatusCreateDTO();
+        TaskStatusCreateDTO toPublish = new TaskStatusCreateDTO();
+        TaskStatusCreateDTO published = new TaskStatusCreateDTO();
+
+        draft.setName("draft");
+        draft.setSlug("draft");
+
+        toReview.setName("to review");
+        toReview.setSlug("to_review");
+
+        toBeFixed.setName("to be fixed");
+        toBeFixed.setSlug("to_be_fixed");
+
+        toPublish.setName("to publish");
+        toPublish.setSlug("to_publish");
+
+        published.setName("published");
+        published.setSlug("published");
+
+        taskStatusService.create(draft);
+        taskStatusService.create(toReview);
+        taskStatusService.create(toBeFixed);
+        taskStatusService.create(toPublish);
+        taskStatusService.create(published);
     }
 }
