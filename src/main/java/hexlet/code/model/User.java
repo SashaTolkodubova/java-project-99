@@ -1,11 +1,6 @@
 package hexlet.code.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -39,6 +35,7 @@ public class User implements UserDetails, BaseEntity {
     private String firstName;
     private String lastName;
 
+    @NotBlank
     @Column(unique = true)
     @Email
     private String email;
@@ -53,6 +50,8 @@ public class User implements UserDetails, BaseEntity {
     @LastModifiedDate
     private LocalDate updatedAt;
 
+    @OneToMany(mappedBy = "assignee")
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
