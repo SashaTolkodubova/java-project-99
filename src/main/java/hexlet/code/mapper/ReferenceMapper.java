@@ -5,7 +5,6 @@ import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import jakarta.persistence.EntityManager;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.TargetType;
 import org.springframework.beans.factory.annotation.Autowired;

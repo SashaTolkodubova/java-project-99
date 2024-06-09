@@ -2,7 +2,6 @@ package hexlet.code.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.dto.taskDTO.TaskCreateDTO;
-import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
@@ -11,8 +10,6 @@ import hexlet.code.repository.TasksRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.util.ModelGenerator;
 import jakarta.transaction.Transactional;
-import lombok.EqualsAndHashCode;
-import net.datafaker.Faker;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.AfterEach;
@@ -26,7 +23,6 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -112,7 +108,7 @@ public class TasksControllerTest {
         taskToSave.setStatus(testTaskStatus.getSlug());
         taskToSave.setContent("TestContent");
         taskToSave.setIndex(100);
-        taskToSave.setAssignee_id(testUser.getId());
+        taskToSave.setAssigneeId(testUser.getId());
 
         mockMvc.perform(
                 post("/api/tasks/")

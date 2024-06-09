@@ -1,11 +1,10 @@
 package hexlet.code.dto.taskDTO;
 
-import hexlet.code.model.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,5 +17,8 @@ public class TaskCreateDTO {
     private String content;
     @NotNull
     private String status;
-    private Long assignee_id;
+
+    @JsonProperty("assignee_id")
+    private Long assigneeId;
+
 }
