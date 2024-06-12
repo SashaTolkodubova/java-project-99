@@ -2,9 +2,11 @@ package hexlet.code.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.dto.taskDTO.TaskCreateDTO;
+import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.TasksRepository;
 import hexlet.code.repository.UserRepository;
@@ -23,6 +25,8 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -41,6 +45,7 @@ public class TasksControllerTest {
     private Task testTask;
     private TaskStatus testTaskStatus;
     private User testUser;
+    private Label testLabel;
     @Autowired
     private ModelGenerator modelGenerator;
 
@@ -59,16 +64,25 @@ public class TasksControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private LabelRepository labelRepository;
+
     @BeforeEach
     public void beforeEach() {
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel()).create();
         taskStatusRepository.save(testTaskStatus);
+        testLabel = new Label();
+        testLabel.setName("testLabelName");
+        labelRepository.save(testLabel);
+        Set<Label> testLabelSet = new HashSet<>();
+        testLabelSet.add(testLabel);
 
         testTask = Instancio.of(modelGenerator.getTaskModel())
                 .set(Select.field(Task::getAssignee), null)
                 .create();
         testTask.setTaskStatus(testTaskStatus);
+        testTask.setLabelList(testLabelSet);
         tasksRepository.save(testTask);
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
         userRepository.save(testUser);
@@ -76,8 +90,13 @@ public class TasksControllerTest {
 
     @AfterEach
     public void afterEach() {
+
         tasksRepository.delete(testTask);
+//        taskStatusRepository.delete(testTaskStatus);
+//        userRepository.delete(testUser);
+        labelRepository.delete(testLabel);
     }
+
 
     @Test
     public void testIndex() throws Exception {
