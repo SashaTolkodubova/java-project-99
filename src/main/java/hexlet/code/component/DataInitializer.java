@@ -1,7 +1,9 @@
 package hexlet.code.component;
 
+import hexlet.code.dto.labelDTO.LabelCreateDTO;
 import hexlet.code.dto.taskStatusDTO.TaskStatusCreateDTO;
 import hexlet.code.dto.userDTO.UserCreateDTO;
+import hexlet.code.service.LabelService;
 import hexlet.code.service.TaskStatusService;
 import hexlet.code.service.UserService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,10 @@ public class DataInitializer implements ApplicationRunner {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private final LabelService labelService;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -55,5 +61,13 @@ public class DataInitializer implements ApplicationRunner {
         taskStatusService.create(toBeFixed);
         taskStatusService.create(toPublish);
         taskStatusService.create(published);
+
+        LabelCreateDTO feature = new LabelCreateDTO();
+        LabelCreateDTO bug = new LabelCreateDTO();
+
+        feature.setName("feature");
+        bug.setName("bug");
+        labelService.create(bug);
+        labelService.create(feature);
     }
 }
