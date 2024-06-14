@@ -1,107 +1,74 @@
-#installAndStart:
-#	gradle installDist;
-#	./build/install/app/bin/app
-#
-#setup:
-#	npm install
-#	./gradlew wrapper --gradle-version 8.7
-#	./gradlew build
-#
-#frontend:
-#	make -C frontend start
-#
-#backend:
-#	./gradlew bootRun --args='--spring.profiles.active=dev'
-#
-#clean:
-#	./gradlew clean
-#
-#build:
-#	chmod +x gradlew
-#	./gradlew clean build
-#
-#dev:
-#	heroku local
-#
-#reload-classes:
-#	./gradlew -t classes
-#
-#start-prod:
-#	./gradlew bootRun --args='--spring.profiles.active=prod'
-#
-#install:
-#	./gradlew installDist
-#
-## start-dist:
-## 	./build/install/app/bin/app
-#
-#lint:
-#	./gradlew checkstyleMain checkstyleTest
-#
-#test:
-#	chmod +x gradlew
-#	./gradlew test
-#
-#report:
-#	chmod +x gradlew
-#	./gradlew jacocoTestReport
-#
-#update-js-deps:
-#	npx ncu -u
-#
-#check-java-deps:
-#	./gradlew dependencyUpdates -Drevision=release
-#
-## generate-migrations:
-## 	gradle diffChangeLog
-#
-## db-migrate:
-## 	./gradlew update
-#
-#
-#.PHONY: build frontend
+installAndStart:
+	chmod +x gradlew
+	gradle installDist;
+	./build/install/app/bin/app
+
 setup:
-	git update-index --chmod=+x gradlew
-	gradle wrapper --gradle-version 8.4
+	chmod +x gradlew
+	npm install
+	./gradlew wrapper --gradle-version 8.7
+	./gradlew build
+
+frontend:
+	chmod +x gradlew
+	make -C frontend start
+
+backend:
+	chmod +x gradlew
+	./gradlew bootRun --args='--spring.profiles.active=dev'
 
 clean:
-	git update-index --chmod=+x gradlew
+	chmod +x gradlew
 	./gradlew clean
 
 build:
-	git update-index --chmod=+x gradlew
+	chmod +x gradlew
 	./gradlew clean build
 
-run-dist:
-	git update-index --chmod=+x gradlew
-	./build/install/bin/-h
+dev:
+	chmod +x gradlew
+	heroku local
+
+reload-classes:
+	chmod +x gradlew
+	./gradlew -t classes
+
+start-prod:
+	chmod +x gradlew
+	./gradlew bootRun --args='--spring.profiles.active=prod'
 
 install:
-	git update-index --chmod=+x gradlew
-	./gradlew clean install
+	chmod +x gradlew
+	./gradlew installDist
 
-run-install-dist:
-	git update-index --chmod=+x gradlew
-	install run-dist
+# start-dist:
+# 	./build/install/app/bin/app
 
-run:
-	git update-index --chmod=+x gradlew
-	./gradlew run
+lint:
+	chmod +x gradlew
+	./gradlew checkstyleMain checkstyleTest
 
-run-dist:
-	git update-index --chmod=+x gradlew
-	./build/install/bin/app
-
-stop:
-	git update-index --chmod=+x gradlew
-	./gradlew stop
+test:
+	chmod +x gradlew
+	./gradlew test
 
 report:
-	git update-index --chmod=+x gradlew
+	chmod +x gradlew
 	./gradlew jacocoTestReport
 
-generate-migrations:
-	git update-index --chmod=+x gradlew
-	./gradlew generateMigrations
+update-js-deps:
+	chmod +x gradlew
+	npx ncu -u
 
-.PHONY: build
+check-java-deps:
+	chmod +x gradlew
+	./gradlew dependencyUpdates -Drevision=release
+
+# generate-migrations:
+# 	gradle diffChangeLog
+
+# db-migrate:
+# 	./gradlew update
+
+
+.PHONY: build frontend
