@@ -61,35 +61,47 @@
 #
 #.PHONY: build frontend
 setup:
+	git update-index --chmod=+x gradlew
 	gradle wrapper --gradle-version 8.4
 
 clean:
+	git update-index --chmod=+x gradlew
 	./gradlew clean
 
 build:
+	git update-index --chmod=+x gradlew
 	./gradlew clean build
 
 run-dist:
+	git update-index --chmod=+x gradlew
 	./build/install/bin/-h
 
 install:
+	git update-index --chmod=+x gradlew
 	./gradlew clean install
 
-run-install-dist: install run-dist
+run-install-dist:
+	git update-index --chmod=+x gradlew
+	install run-dist
 
 run:
+	git update-index --chmod=+x gradlew
 	./gradlew run
 
 run-dist:
+	git update-index --chmod=+x gradlew
 	./build/install/bin/app
 
 stop:
+	git update-index --chmod=+x gradlew
 	./gradlew stop
 
 report:
+	git update-index --chmod=+x gradlew
 	./gradlew jacocoTestReport
 
 generate-migrations:
+	git update-index --chmod=+x gradlew
 	./gradlew generateMigrations
 
 .PHONY: build
