@@ -1,7 +1,9 @@
 package hexlet.code.controller.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.dto.taskDTO.TaskCreateDTO;
+import hexlet.code.dto.taskDTO.TaskDTO;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
@@ -23,9 +25,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -97,7 +101,6 @@ public class TasksControllerTest {
         labelRepository.delete(testLabel);
     }
 
-
     @Test
     public void testIndex() throws Exception {
         mockMvc.perform(
@@ -107,7 +110,32 @@ public class TasksControllerTest {
     }
 
     @Test
-    public void testShow() throws Exception {
+    @Transactional
+    public void testGetTaskWithParams() throws Exception {
+        Task task1 = Instancio.of(modelGenerator.getTaskModel()).create();
+        task1.setTaskStatus(testTaskStatus);
+        task1.setAssignee(testUser);
+        Set<Label> labelSet = new HashSet<>();
+        labelSet.add(testLabel);
+        task1.setLabelList(labelSet);
+        tasksRepository.save(task1);
+
+        String queryString1 = "?titleConst=" + task1.getName()
+                + "&assigneeId=" + task1.getAssignee().getId()
+                + "&status=" + task1.getTaskStatus().getSlug();
+
+        MvcResult result = mockMvc.perform(
+                        get("/api/tasks/" + "?assigneeId=" + testUser.getId())
+                                .with(token))
+                .andExpect(status().isOk()).andReturn();
+        String content = result.getResponse().getContentAsString();
+        List<TaskDTO> taskList = objectMapper.readValue(content, new TypeReference<>() {});
+        assertThat(taskList).hasSize(1);
+        assertThat(taskList.get(0).getId()).isEqualTo(task1.getId());
+    }
+
+    @Test
+    public void testGetTask() throws Exception {
         mockMvc.perform(
                 get("/api/tasks/{id}", testTask.getId())
                         .with(token)
