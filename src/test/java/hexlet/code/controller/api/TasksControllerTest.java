@@ -129,7 +129,8 @@ public class TasksControllerTest {
                                 .with(token))
                 .andExpect(status().isOk()).andReturn();
         String content = result.getResponse().getContentAsString();
-        List<TaskDTO> taskList = objectMapper.readValue(content, new TypeReference<>() {});
+        List<TaskDTO> taskList = objectMapper.readValue(content, new TypeReference<>() {
+        });
         assertThat(taskList).hasSize(1);
         assertThat(taskList.get(0).getId()).isEqualTo(task1.getId());
     }
