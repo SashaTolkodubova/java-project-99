@@ -56,5 +56,5 @@ public class Task implements BaseEntity {
     @JoinTable(name = "task_label",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
-    private Set<Label> labelList = new LinkedHashSet<>();
+    private Set<Label> labels = new LinkedHashSet<>();
 }

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks/")
+@RequestMapping("/api/tasks")
 public class TasksController {
 
     @Autowired
@@ -61,6 +61,7 @@ public class TasksController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable Long id) {
         taskService.delete(id);
     }

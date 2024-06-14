@@ -60,7 +60,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("@userUtils.isSelf(#id)")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {
         userService.delete(id);
     }

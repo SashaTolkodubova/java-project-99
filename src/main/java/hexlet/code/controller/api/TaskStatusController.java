@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/task_statuses/")
+@RequestMapping("/api/task_statuses")
 public class TaskStatusController {
 
     @Autowired
@@ -56,6 +56,7 @@ public class TaskStatusController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTaskStatus(@PathVariable Long id) {
         taskStatusService.delete(id);
     }

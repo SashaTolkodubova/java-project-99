@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/labels/")
+@RequestMapping("/api/labels")
 public class LabelController {
 
     @Autowired
@@ -57,6 +57,7 @@ public class LabelController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLabel(@PathVariable Long id) {
         labelService.delete(id);
     }
